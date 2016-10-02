@@ -28,6 +28,8 @@ angular.module('app.mainMenucontroller', []).controller('mainMenuCtrl', function
         }
     });
     $scope.loadMenu = function () {
+        $scope.onlyNumbers = /^\d+$/;
+
         // sharedUtils.showLoading();
         // $scope.menu = $firebaseArray(fireBaseData.refMenu());
         // $scope.menu.$loaded().then(function (items) {
@@ -36,17 +38,27 @@ angular.module('app.mainMenucontroller', []).controller('mainMenuCtrl', function
         // });
         // sharedUtils.hideLoading();
 
-        $restClient.getProducts(function(msg){
+        $restClient.getProducts(function (msg) {
             console.log(JSON.stringify(msg));
             $scope.menu = msg.products;
         });
-
-
-
-
-
-
     }
+
+    $scope.dedQty = function (a) {
+        console.log(a);
+    };
+
+    $scope.addQty = function (a) {
+        var x = parseInt(a);
+        document.getElementById("input_" + a).value = x++;
+
+        console.log(a);
+    };
+
+    $scope.addItem = function () {
+        alert("a: ");
+    };
+
     $scope.showProductInfo = function (id) { };
     $scope.addToCart = function (item) {
         sharedCartService.add(item);
@@ -65,8 +77,8 @@ angular.module('app.mainMenucontroller', []).controller('mainMenuCtrl', function
 
         $scope.auth = $firebaseArray(fireBaseData.ref());
         // $scope.menu.$loaded().then(function (items) {
-            // $scope.menu = items;
-            // console.log('=========>' + JSON.stringify(items)); // populated array
+        // $scope.menu = items;
+        // console.log('=========>' + JSON.stringify(items)); // populated array
         // });
 
     };
