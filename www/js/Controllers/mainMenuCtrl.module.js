@@ -1,4 +1,4 @@
-angular.module('app.mainMenucontroller', []).controller('mainMenuCtrl', function ($scope, $rootScope, $ionicSideMenuDelegate, fireBaseData, $state, $ionicHistory, $firebaseArray, sharedCartService, sharedUtils) {
+angular.module('app.mainMenucontroller', []).controller('mainMenuCtrl', function ($scope, $firebase, $restClient, $rootScope, $ionicSideMenuDelegate, fireBaseData, $state, $ionicHistory, $firebaseArray, sharedCartService, sharedUtils) {
     //Check if user already logged in
     firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
@@ -28,16 +28,46 @@ angular.module('app.mainMenucontroller', []).controller('mainMenuCtrl', function
         }
     });
     $scope.loadMenu = function () {
-        sharedUtils.showLoading();
-        $scope.menu = $firebaseArray(fireBaseData.refMenu());
-        $scope.menu.$loaded().then(function (items) {
-            $scope.menu = items;
-            console.log('=========>' + items); // populated array
+        // sharedUtils.showLoading();
+        // $scope.menu = $firebaseArray(fireBaseData.refMenu());
+        // $scope.menu.$loaded().then(function (items) {
+        //     $scope.menu = items;
+        //     console.log('=========>' + JSON.stringify(items)); // populated array
+        // });
+        // sharedUtils.hideLoading();
+
+        $restClient.getProducts(function(msg){
+            console.log(JSON.stringify(msg));
+            $scope.menu = msg.products;
         });
-        sharedUtils.hideLoading();
+
+
+
+
+
+
     }
-    $scope.showProductInfo = function (id) {};
+    $scope.showProductInfo = function (id) { };
     $scope.addToCart = function (item) {
         sharedCartService.add(item);
+    };
+
+    $scope.getUserDetails = function () {
+        $restClient.getUserDetails(function (msg) {
+            console.log(JSON.stringify(msg));
+        });
+    };
+
+    $scope.getPost = function () {
+        // $restClient.getPost(1,function(msg){
+        //     console.log(JSON.stringify(msg));
+        // });
+
+        $scope.auth = $firebaseArray(fireBaseData.ref());
+        // $scope.menu.$loaded().then(function (items) {
+            // $scope.menu = items;
+            // console.log('=========>' + JSON.stringify(items)); // populated array
+        // });
+
     };
 })

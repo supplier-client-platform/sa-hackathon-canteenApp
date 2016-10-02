@@ -47,6 +47,7 @@ angular.module('app.loginController', [])
                 // 2. Set rootScope.extra;
                 // 3. Turn off the loading
                 // 4. Got to menu page
+                alert(JSON.stringify(result));
 
               $ionicHistory.nextViewOptions({
                 historyRoot: true
