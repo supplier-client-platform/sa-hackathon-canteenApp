@@ -56,58 +56,13 @@ angular.module('rest-client', []).
                 $http({
                     method: 'POST'
                     , url: 'http://api.sa-hack.reactive-solutions.xyz/api/v1/order/new'
-                    , params: {
-                        "customer_id": 550,
-                        "total_price": 300,
-                        "status": "pending",
-                        "items": [
-                            {
-                                "product_id": 2,
-                                "quantity": 3
-                            },
-                            {
-                                "product_id": 3,
-                                "quantity": 5
-                            }
-                        ]
-                    }
+                    , params: { "customer_id": 650, "total_price": 650, "status": "pending", "items": [{ "product_id": "1", "quantity": 3 }, { "product_id": "3", "quantity": 5 }] }
                 }).success(function (msg) {
-        callBack(msg);
-    }).error(function (err) {
-        console.log(err);
-        callBack('error');
-    });
+                    callBack(msg);
+                }).error(function (err) {
+                    console.log(err);
+                    callBack('error');
+                });
             }
-
-            //        , callLogin: function (userName, password, callBack) {
-            //            $http({
-            //                method: 'POST'
-            //                , url: $rootScope.WS_URL + '/user/login'
-            //                , data: 'username=' + userName + '&password=' + password
-            //            }).success(function (msg) {
-            //                callBack(msg);
-            //            }).error(function (err) {
-            //                console.log(err);
-            //                callBack('error');
-            //            });
-            //        }
-            //        , createAccount: function (email, password, callBack) {
-            //            $http({
-            //                method: 'POST'
-            //                , url: $rootScope.WS_URL + '/user'
-            //                , headers: {
-            //                    "Content-Type": 'application/json'
-            //                }
-            //                , data: {
-            //                    'cmd': 'create'
-            //                    , 'uname': email
-            //                    , 'password': password
-            //                }
-            //            }).success(function (msg) {
-            //                callBack(msg);
-            //            }).error(function (err) {
-            //                callBack('error');
-            //            });
-            //        }
         };
     }]);
